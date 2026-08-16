@@ -1,12 +1,11 @@
-FROM maven AS buildstage
-RUN mkdir /opt/mindcircuit15d
-WORKDIR /opt/mindcircuit15d
-COPY . .
-RUN mvn clean install    ## artifact -- .war 
+FROM tomcat:latest
 
-## tomcat deploy stage 
-FROM tomcat 
-WORKDIR webapps 
-COPY --from=buildstage /opt/mindcircuit15d/target/*.war .
-RUN rm -rf ROOT && mv *.war ROOT.war
+WORKDIR /usr/local/tomcat/webapps
+
+# Remove the default ROOT application
+RUN rm -rf ROOT
+
+# Copy the WAR built by Jenkins
+COPY target/*.war ROOT.war
+
 EXPOSE 8080
