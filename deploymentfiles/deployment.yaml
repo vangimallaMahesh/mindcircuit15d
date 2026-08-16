@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: fbcont1
-          image: vangimallamahesh/ci-cd:17
+          image: vangimallamahesh/ci-cd:19
           ports:
             - containerPort: 8080
       
